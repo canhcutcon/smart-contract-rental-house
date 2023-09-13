@@ -3,7 +3,7 @@
 pragma solidity 0.8.19;
 import {TransferAction} from "../libraries/contanst.sol";
 interface IRoom {
-    event SetRoomForRent(uint256 _roomId);
+    event SetRoomForRent(uint256 _roomId, address _owner);
     event RentStarted(uint256 _roomId,address renter,string _contractHash,uint256 _rentAmount,uint256 _deposit);
     event PayForRent(uint256 _roomId, string _invoiceHash, uint256 invoiceFee);
     event RentEnded(uint256 _roomId, uint256 depositAmount);
@@ -23,12 +23,12 @@ interface IRoom {
         bool forRent;
     }
 
-    function setRoomForRent(uint256 rentAmountPerMonth,uint256 depositAmount) external;
+    function setRoomForRent(uint256 _rentAmountPerMonth,uint256 _depositAmount, address payable _owner) external;
     function signForRental(uint256 roomUid, string memory contractHash) external payable;
     function endRentalRoom(uint256 roomUid) external payable;
     function endRentalRoomWithPenaltyFee(uint256 roomId, uint256 penaltyFee) external payable;
-    function reOpenRentRoom(uint256 roomUid,uint256 rentAmountPerMonth,uint256 depositAmount) external;
-    function extendRentalRoom(uint256 roomId, string memory contractHash) external;
-    function payForRent(uint256 roomId, string memory invoiceHash, uint256 invoiceFee) external payable;
-    function invoicesHistory(uint256 roomUid) external view;
+    function reOpenRentRoom(uint256 roomUid,uint256 _rentAmountPerMonth,uint256 _depositAmount) external;
+    function extendRentalRoom(uint256 roomId, string memory _contractHash) external;
+    function payForRent(uint256 roomId, string memory _invoiceHash, uint256 invoiceFee) external payable;
+    function invoicesHistory(uint256 roomUid) external view returns(string[] memory);
 }

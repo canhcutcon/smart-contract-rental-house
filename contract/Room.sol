@@ -4,24 +4,25 @@ pragma solidity 0.8.19;
 
 import {IRoom} from "../interfaces/IRoom.sol";
 import {TransferAction} from "../libraries/contanst.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-abstract contract RoomRental is IRoom{
+abstract contract RoomRental is IRoom, Ownable{
     uint256 public roomId;
     mapping(uint256 => Room) private _rooms;
 
-    function setRoomForRent(uint256 rentAmountPerMonth,uint256 depositAmount) public {
+    function setRoomForRent(uint256 _rentAmountPerMonth,uint256 _depositAmount, address payable _owner) public onlyOwner{
         string[] memory invoices;
         _rooms[roomId] = Room(
             "contract",
             invoices,
-            rentAmountPerMonth,
-            depositAmount,
-            payable(msg.sender),
+            _rentAmountPerMonth,
+            _depositAmount,
+            _owner,
             payable(address(0)),
             false,
             true
         );
-        emit SetRoomForRent(roomId);
+        emit SetRoomForRent(roomId, _owner);
         roomId++;
     }
 
