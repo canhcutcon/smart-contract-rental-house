@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 abstract contract RoomRental is IRoom, Ownable{
     uint256 public roomId;
-    mapping(uint256 => Room) private _rooms;
+    mapping(uint256 => Room) public _rooms;
 
     function setRoomForRent(uint256 _rentAmountPerMonth,uint256 _depositAmount, address payable _owner) public onlyOwner{
         string[] memory invoices;
