@@ -110,4 +110,6 @@ abstract contract RoomRental is IRoom, Ownable{
         return _rooms[roomUid].invoices;
     }
 
+    
+
 }
