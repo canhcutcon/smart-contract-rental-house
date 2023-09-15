@@ -4,7 +4,7 @@ pragma solidity 0.8.19;
 import {TransferAction} from "../libraries/contanst.sol";
 
 interface IRoom {
-    event SetRoomForRent(uint256 _roomId, address _owner);
+    event SetRoomForRent(uint256 _roomId, address _owner, string roomInfo);
     event RentStarted(
         uint256 _roomId,
         address renter,
@@ -42,7 +42,8 @@ interface IRoom {
     function setRoomForRent(
         uint256 _rentAmountPerMonth,
         uint256 _depositAmount,
-        address payable _owner
+        address payable _owner, 
+        string memory roomInfo
     ) external;
 
     function signForRental(

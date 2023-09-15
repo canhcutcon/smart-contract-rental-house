@@ -12,7 +12,8 @@ abstract contract RoomRental is IRoom, Ownable {
     function setRoomForRent(
         uint256 _rentAmountPerMonth,
         uint256 _depositAmount,
-        address payable _owner
+        address payable _owner,
+        string memory roomInfo
     ) public onlyOwner {
         string[] memory invoices;
         _rooms[roomId] = Room(
@@ -25,7 +26,7 @@ abstract contract RoomRental is IRoom, Ownable {
             false,
             true
         );
-        emit SetRoomForRent(roomId, _owner);
+        emit SetRoomForRent(roomId, _owner, roomInfo);
         roomId++;
     }
 
